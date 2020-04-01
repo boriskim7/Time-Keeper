@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".CalcActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0061ADC7"
+        android:padding="2sp">
+
+        <EditText
+            android:id="@+id/hourStake"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="false"
+            android:background="#CEF1A25B"
+            android:ems="10"
+            android:hint="@string/hour_stake_editView"
+            android:inputType="number"
+            android:padding="5sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="italic"
+            android:typeface="sans" />
+
+        <EditText
+            android:id="@+id/overtimeHours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hourStake"
+            android:background="#CEF1A25B"
+            android:ems="10"
+            android:hint="@string/overtime_hours"
+            android:inputType="number"
+            android:padding="5sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/holidaysHours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/overtimeHours"
+            android:background="#CEF1A25B"
+            android:ems="10"
+            android:hint="@string/weekend_hours"
+            android:inputType="number"
+            android:padding="5sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/nightShiftsHours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/holidaysHours"
+            android:background="#CEF1A25B"
+            android:ems="10"
+            android:hint="@string/night_shift_hours"
+            android:inputType="number"
+            android:padding="5sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/holidaysOverTimeHours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nightShiftsHours"
+            android:background="#CEF1A25B"
+            android:ems="10"
+            android:hint="@string/weekend_overtime"
+            android:inputType="number"
+            android:padding="5sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/monthCalc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/holidaysOverTimeHours"
+            android:layout_alignRight="@id/hourStake"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentRight="false"
+            android:background="#CEF1A25B"
+            android:ems="10"
+            android:hint="@string/month"
+            android:inputType="number"
+            android:padding="5sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/yearCalc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/monthCalc"
+            android:layout_alignParentRight="false"
+            android:background="#CEF1A25B"
+            android:ems="10"
+            android:hint="@string/year"
+            android:inputType="number"
+            android:padding="5sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="italic" />
+
+        <Button
+            android:id="@+id/Calc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/yearCalc"
+            android:background="#CEF1A25B"
+            android:onClick="onCalcButtonClick"
+            android:text="@string/calculate_button"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Calc"
+            android:background="#CEF1A25B"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#DD161C"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/workHours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/result"
+            android:layout_alignParentRight="false"
+            android:background="#CEF1A25B"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#DD161C"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

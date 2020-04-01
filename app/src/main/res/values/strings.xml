@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Time Keeper</string>
+    <string name="calc_button">Calculator</string>
+    <string name="add_day_button">Add day</string>
+    <string name="text_view_header">Working \n Time</string>
+
+    <string name="hour_stake_editView">Hour rate</string>
+    <string name="overtime_hours">Overtime hours</string>
+    <string name="weekend_hours">Weekend and holiday hours</string>
+    <string name="night_shift_hours">Night shift hours</string>
+    <string name="weekend_overtime">Weekend and holiday overtime hours</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+
+    <string name="calculate_button">Calculate</string>
+    <string name="select_date_header">Select date</string>
+    <string name="btn_add_shift">Add shift</string>
+
+
+</resources>

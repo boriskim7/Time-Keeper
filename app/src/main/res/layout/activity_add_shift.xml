@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/selectDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/select_date_header"
+        android:textAlignment="center"
+        android:background="#FF9900"
+        android:textSize="22sp" />
+
+    <CalendarView
+        android:id="@+id/calendarView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/editTextShiftDate"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/editTextShiftStartTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date|time" />
+    <EditText
+        android:id="@+id/editTextShiftEndTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date|time" />
+
+    <Button
+        android:id="@+id/buttonAddShift"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#FF9900"
+        android:text="@string/btn_add_shift" />
+
+
+
+</LinearLayout>

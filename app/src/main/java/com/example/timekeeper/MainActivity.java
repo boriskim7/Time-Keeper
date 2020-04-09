@@ -13,7 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
@@ -23,7 +26,19 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     private Button nextMonth;
     private Button btnCalc;
     private Button btnAddShift;
+    RecyclerView recyclerView;
     MyRecyclerViewAdapter adapter;
+
+    // how many days to show, defaults to six weeks, 42 days
+    private static final int DAYS_COUNT = 42;
+    // default date format
+    private static final String DATE_FORMAT = "MMM yyyy";
+
+    // date format
+    private String dateFormat;
+
+    // current displayed month
+    private Calendar currentDate = Calendar.getInstance();
 
 
     @Override
@@ -35,6 +50,11 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         monthName.setText(monthNameInHeader);
         btnCalc = (Button) findViewById(R.id.buttonCalc);
         btnAddShift = (Button) findViewById(R.id.buttonAddDay);
+
+        HashSet<Date> events = new HashSet<>();
+        events.add(new Date());
+        recyclerView = findViewById(R.id.calendarView);
+        recyclerView.updateCalendar(events);
 
         btnCalc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,17 +70,34 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                 AddDay();
             }
         });
-        String[] data = {"29", "30", "31", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13",
-                "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "1", "2",
-                "14", "15", "16", "17", "18", "38", "39", "40", "41", "42"};
+
 
         // set up the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.calendarView);
+
+
+    }
+    public void updateCalendar(HashSet<Date> events) {
         int numberOfColumns = 7;
+        ArrayList<Date> cells = new ArrayList<>();
+        Calendar calendar = (Calendar)currentDate.clone();
+
+        // determine the cell for current month's beginning
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        int monthBeginningCell = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+
+        // move calendar backwards to the beginning of the week
+        calendar.add(Calendar.DAY_OF_MONTH, -monthBeginningCell);
+
+        // fill cells
+        while (cells.size() < DAYS_COUNT)
+        {
+            cells.add(calendar.getTime());
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
         recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-        adapter = new MyRecyclerViewAdapter(this, data);
+        adapter = new MyRecyclerViewAdapter(this, days);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
+
     }
     public void openCalc() {
         Intent intent = new Intent(this, calcActivity.class);

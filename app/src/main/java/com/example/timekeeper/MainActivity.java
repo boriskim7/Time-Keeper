@@ -70,11 +70,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
 
         // set up the RecyclerView
-        updateCalendar();
-
-
-    }
-    public void updateCalendar() {
+        RecyclerView recyclerView = findViewById(R.id.calendarView);
         int numberOfColumns = 7;
         ArrayList<Date> cells = new ArrayList<>();
         ArrayList<Shift> days = new ArrayList<Shift>();
@@ -97,9 +93,14 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             adapter.setClickListener(this);
             recyclerView.setAdapter(adapter);
 
-        }
 
     }
+
+
+
+        }
+
+
     public void openCalc() {
         Intent intent = new Intent(this, calcActivity.class);
         startActivity(intent);

@@ -43,7 +43,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         holder.dateTextView.setText(sdf.format(mShifts.get(position).getDate()));
         holder.sunMoonImageView.setImageResource(R.drawable.sun_calendar);
-        holder.overtimeTextView.setText(Float.toString(mShifts.get(position).getOvertime());
+        holder.overtimeTextView.setText(Double.toString(mShifts.get(position).getOvertime()));
 
     }
 

@@ -45,16 +45,13 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         monthName = (TextView) findViewById(R.id.monthName);
         monthNameInHeader = Calendar.getInstance().getDisplayName(Calendar.MONTH,Calendar.LONG, Locale.getDefault());
         monthName.setText(monthNameInHeader);
         btnCalc = (Button) findViewById(R.id.buttonCalc);
         btnAddShift = (Button) findViewById(R.id.buttonAddDay);
 
-        HashSet<Date> events = new HashSet<>();
-        events.add(new Date());
-        recyclerView = findViewById(R.id.calendarView);
-        recyclerView.updateCalendar(events);
 
         btnCalc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,13 +70,15 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
 
         // set up the RecyclerView
+        updateCalendar();
 
 
     }
-    public void updateCalendar(HashSet<Date> events) {
+    public void updateCalendar() {
         int numberOfColumns = 7;
         ArrayList<Date> cells = new ArrayList<>();
-        Calendar calendar = (Calendar)currentDate.clone();
+        ArrayList<Shift> days = new ArrayList<Shift>();
+        Calendar calendar = (Calendar) currentDate.clone();
 
         // determine the cell for current month's beginning
         calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -89,14 +88,16 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         calendar.add(Calendar.DAY_OF_MONTH, -monthBeginningCell);
 
         // fill cells
-        while (cells.size() < DAYS_COUNT)
-        {
+        while (cells.size() < DAYS_COUNT) {
             cells.add(calendar.getTime());
             calendar.add(Calendar.DAY_OF_MONTH, 1);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-        adapter = new MyRecyclerViewAdapter(this, days);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
+            days.add(new Shift(cells.get(cells.size()-1), 1, 2, 6.5));
+            recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
+            adapter = new MyRecyclerViewAdapter(this, days);
+            adapter.setClickListener(this);
+            recyclerView.setAdapter(adapter);
+
+        }
 
     }
     public void openCalc() {

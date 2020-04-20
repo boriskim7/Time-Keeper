@@ -125,6 +125,7 @@
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="5dp"
         android:layout_margin="3dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -153,11 +154,6 @@
         app:layout_constraintEnd_toEndOf="@id/calendar_header"
         app:layout_constraintTop_toBottomOf="@id/buttonCalc" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="196dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

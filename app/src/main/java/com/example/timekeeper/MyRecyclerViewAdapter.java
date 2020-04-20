@@ -10,10 +10,12 @@ import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
@@ -21,10 +23,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
+
+
     // data is passed into the constructor
     MyRecyclerViewAdapter(Context context, ArrayList<Shift> days) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mShifts = days;
+        mInflater = LayoutInflater.from(context);
+        mShifts = days;
     }
 
     // inflates the cell layout from xml when needed
@@ -42,7 +46,13 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         SimpleDateFormat sdf = new SimpleDateFormat("dd");
 
         holder.dateTextView.setText(sdf.format(mShifts.get(position).getDate()));
-        holder.sunMoonImageView.setImageResource(R.drawable.sun_calendar);
+        if(mShifts.get(position).nightHours > 0 ) {
+            holder.sunMoonImageView.setImageResource(R.drawable.moon_calendar);
+        }
+        if(mShifts.get(position).nightHours == 0 ) {
+            holder.sunMoonImageView.setImageResource(R.drawable.sun_calendar);
+
+        }
         holder.overtimeTextView.setText(Double.toString(mShifts.get(position).getOvertime()));
 
     }
@@ -60,15 +70,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         ImageView sunMoonImageView;
         TextView overtimeTextView;
 
-
         ViewHolder(View itemView) {
             super(itemView);
             dateTextView = itemView.findViewById(R.id.date_text);
             itemView.setOnClickListener(this);
             sunMoonImageView = itemView.findViewById(R.id.sun_moon_icon_view);
             overtimeTextView = itemView.findViewById(R.id.overtime_text);
-
-
         }
 
         @Override
@@ -91,4 +98,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }
+
+
+
 }

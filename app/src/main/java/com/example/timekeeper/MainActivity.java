@@ -30,28 +30,27 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     MyRecyclerViewAdapter adapter;
 
     // how many days to show, defaults to six weeks, 42 days
-    private static final int DAYS_COUNT = 42;
     // default date format
     private static final String DATE_FORMAT = "MMM yyyy";
 
     // date format
     private String dateFormat;
-
-    // current displayed month
+    private static final int DAYS_COUNT = 42;
     private Calendar currentDate = Calendar.getInstance();
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Calendar calendar = (Calendar) currentDate.clone();
 
         monthName = (TextView) findViewById(R.id.monthName);
-        monthNameInHeader = Calendar.getInstance().getDisplayName(Calendar.MONTH,Calendar.LONG, Locale.getDefault());
+        monthNameInHeader = calendar.getDisplayName(Calendar.MONTH,Calendar.LONG, Locale.getDefault());
         monthName.setText(monthNameInHeader);
         btnCalc = (Button) findViewById(R.id.buttonCalc);
         btnAddShift = (Button) findViewById(R.id.buttonAddDay);
-
 
         btnCalc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,12 +68,10 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         });
 
 
-        // set up the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.calendarView);
+
         int numberOfColumns = 7;
         ArrayList<Date> cells = new ArrayList<>();
         ArrayList<Shift> days = new ArrayList<Shift>();
-        Calendar calendar = (Calendar) currentDate.clone();
 
         // determine the cell for current month's beginning
         calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -88,17 +85,16 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             cells.add(calendar.getTime());
             calendar.add(Calendar.DAY_OF_MONTH, 1);
             days.add(new Shift(cells.get(cells.size()-1), 1, 2, 6.5));
-            recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-            adapter = new MyRecyclerViewAdapter(this, days);
-            adapter.setClickListener(this);
-            recyclerView.setAdapter(adapter);
+        }
+
+        // set up the RecyclerView
+        RecyclerView recyclerView = findViewById(R.id.calendarView);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns, GridLayoutManager.VERTICAL, false));
+        adapter = new MyRecyclerViewAdapter(this, days);
+        recyclerView.setAdapter(adapter);
 
 
     }
-
-
-
-        }
 
 
     public void openCalc() {

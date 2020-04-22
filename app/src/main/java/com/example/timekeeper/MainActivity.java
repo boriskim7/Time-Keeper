@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
     // how many days to show, defaults to six weeks, 42 days
     // default date format
-    private static final String DATE_FORMAT = "MMM yyyy";
 
     // date format
     private String dateFormat;

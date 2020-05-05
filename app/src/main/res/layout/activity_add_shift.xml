@@ -4,6 +4,7 @@
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
 
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -18,38 +19,46 @@
 
     <DatePicker
         android:id="@+id/datePicker"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_gravity="center_horizontal"
         android:backgroundTint="#FFFFFF"
         android:calendarTextColor="#FF9900"
         android:datePickerMode="calendar"
-        android:headerBackground="#FF9900" />
-
-    <EditText
-        android:id="@+id/editTextShiftDate"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:inputType="date" />
+        android:foregroundGravity="center"
+        android:headerBackground="#FF9900"
+        android:textAlignment="center"
+        android:windowSoftInputMode="stateVisible|adjustResize" />
 
     <EditText
         android:id="@+id/editTextShiftOvertime"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" />
+        android:layout_height="40dp"
+        android:ems="10"
+        android:textAlignment="center"
+        android:hint="Overtime"
+        android:background="@drawable/calc_button"/>
     <EditText
         android:id="@+id/editTextShiftNightHour"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" />
+        android:layout_height="40dp"
+        android:ems="10"
+        android:hint="Night Hour"
+        android:textAlignment="center"
+        android:background="@drawable/calc_button"/>
 
     <Button
         android:id="@+id/buttonAddShift"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#FF9900"
+        android:background="@drawable/calc_button"
         android:text="@string/btn_add_shift" />
-
+    <Button
+        android:id="@+id/buttonDB"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/calc_button"
+        android:text="db" />
 
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.timekeeper;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd");
 
+
         holder.dateTextView.setText(sdf.format(mShifts.get(position).getDate()));
+        if(sdf.format(mShifts.get(position).getDate()).equals(10) || sdf.format(mShifts.get(position).getDate()).equals(20))
+            holder.dateTextView.setBackgroundColor(888888);
         if(mShifts.get(position).nightHours > 0 ) {
             holder.sunMoonImageView.setImageResource(R.drawable.moon_calendar);
         }

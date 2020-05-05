@@ -18,7 +18,7 @@
     android:weightSum="10"
     android:gravity="center">
     <ImageButton
-        android:id="@+id/buttonLeft"
+        android:id="@+id/buttonPrev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#00FFFFFF"
@@ -41,7 +41,7 @@
         android:layout_weight="8" />
 
     <ImageButton
-        android:id="@+id/buttonRight"
+        android:id="@+id/buttonNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#00FFFFFF"
@@ -153,6 +153,37 @@
         android:text="@string/add_day_button"
         app:layout_constraintEnd_toEndOf="@id/calendar_header"
         app:layout_constraintTop_toBottomOf="@id/buttonCalc" />
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/calendarView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/calc_button"
+        android:padding="20sp"
+        android:layout_margin="10sp"
+        android:text="Total"/>
+    <TextView
+        android:id="@+id/total_overtime"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/total"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/calc_button"
+        android:padding="20sp"
+        android:layout_margin="10sp"
+        android:text="Total overtime"/>/>
+    <TextView
+        android:id="@+id/total_night"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/total_overtime"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/calc_button"
+        android:padding="20sp"
+        android:layout_margin="10sp"
+        android:text="Total night hours"/>/>
+
 
 
 

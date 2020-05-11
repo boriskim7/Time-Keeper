@@ -42,13 +42,11 @@ public class AddShiftActivity extends AppCompatActivity {
                 Cursor cursor = sqLiteDatabase.query(ShiftDBContract.ShiftRecords.TABLE_NAME, null, null, null, null, null, null);
 
                 if (cursor.moveToFirst()) {
-                    int idIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords._ID);
                     int dateIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_DATE);
                     int ovIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_OVERTIME);
                     int nsIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_NIGHT_HOUR);
                     do {
-                        Log.d("mLog", "ID = " + cursor.getInt(idIndex) +
-                                ", DATE = " + cursor.getString(dateIndex) +
+                        Log.d("mLog","DATE = " + cursor.getString(dateIndex) +
                                 ", overtime = " + cursor.getDouble(ovIndex) +
                                 ", nightshift = " + cursor.getDouble(nsIndex));
                     } while (cursor.moveToNext());

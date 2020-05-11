@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,8 +30,10 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     private ImageButton nextMonth;
     private Button btnCalc;
     private Button btnAddShift;
-    RecyclerView recyclerView;
-    MyRecyclerViewAdapter adapter;
+    private RecyclerView recyclerView;
+    private MyRecyclerViewAdapter adapter;
+    private SQLiteDatabase sqLiteDatabase;
+
 
     // how many days to show, defaults to six weeks, 42 days
     // default date format
@@ -87,6 +92,12 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
     }
     public void updateCalendar() {
+        final ShiftDBSQLiteHelper dbHelper = new ShiftDBSQLiteHelper(this);
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        Cursor cursor;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
+
+
         monthNameInHeader = currentDate.getDisplayName(Calendar.MONTH,Calendar.LONG, Locale.getDefault());
         monthName.setText(monthNameInHeader);
         int numberOfColumns = 7;
@@ -99,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         int monthBeginningCell = calendar.get(Calendar.DAY_OF_WEEK) - 2;
 
-        // move calendar backwards to the beginning of the week
+        // move calendar backwards to the beginning of the weekdebu
         calendar.add(Calendar.DAY_OF_MONTH, -monthBeginningCell);
 
         // fill cells
@@ -107,9 +118,27 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             cells.add(calendar.getTime());
 
             calendar.add(Calendar.DAY_OF_MONTH, 1);
-            if(cells.size()%2 == 0)
-                days.add(new Shift(cells.get(cells.size()-1), 1, 1, 0));
-            else days.add(new Shift(cells.get(cells.size()-1), 1, 2, 6.5));
+            String selection = ShiftDBContract.ShiftRecords.COLUMN_DATE + " = ?";
+            String [] selectionArgs = {sdf.format(cells.get(cells.size()-1))};
+            cursor = sqLiteDatabase.query(
+                    ShiftDBContract.ShiftRecords.TABLE_NAME,
+                    null,
+                    selection ,
+                    selectionArgs,
+                    null,
+                    null,
+                    null);
+
+                if(cursor.moveToFirst()!=false) {
+                    int dateIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_DATE);
+                    int ovIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_OVERTIME);
+                    int nsIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_NIGHT_HOUR);
+
+                    days.add(new Shift(cells.get(cells.size() - 1), 1, cursor.getDouble(ovIndex), cursor.getDouble(nsIndex)));
+                } else {
+                    days.add(new Shift(cells.get(cells.size()-1),0,0,0));
+                }
+
         }
 
         // set up the RecyclerView

@@ -94,15 +94,15 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     public void updateCalendar() {
         final ShiftDBSQLiteHelper dbHelper = new ShiftDBSQLiteHelper(this);
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        Cursor cursor;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
+//        Cursor cursor;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
 
 
         monthNameInHeader = currentDate.getDisplayName(Calendar.MONTH,Calendar.LONG, Locale.getDefault());
         monthName.setText(monthNameInHeader);
         int numberOfColumns = 7;
         ArrayList<Date> cells = new ArrayList<>();
-        ArrayList<Shift> days = new ArrayList<>();
+        ArrayList<Shift> shifts = new ArrayList<>();
         Calendar calendar = (Calendar)currentDate.clone();
 
 
@@ -118,33 +118,49 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             cells.add(calendar.getTime());
 
             calendar.add(Calendar.DAY_OF_MONTH, 1);
-            String selection = ShiftDBContract.ShiftRecords.COLUMN_DATE + " = ?";
+            String [] columns = {
+                    ShiftDBContract.ShiftRecords.COLUMN_DATE,
+                    ShiftDBContract.ShiftRecords.COLUMN_OVERTIME,
+                    ShiftDBContract.ShiftRecords.COLUMN_NIGHT_HOUR};
+
+            String selection = ShiftDBContract.ShiftRecords.COLUMN_DATE + " =?";
             String [] selectionArgs = {sdf.format(cells.get(cells.size()-1))};
-            cursor = sqLiteDatabase.query(
+//            String [] selectionArgs = {"2020-05-05"};
+//            String select = "SELECT * FROM " + ShiftDBContract.ShiftRecords.TABLE_NAME + " WHERE " + ShiftDBContract.ShiftRecords.COLUMN_DATE + " = ?";
+
+            //cursor = sqLiteDatabase.rawQuery(select, selectionArgs);
+
+            Cursor cursor = sqLiteDatabase.query(
                     ShiftDBContract.ShiftRecords.TABLE_NAME,
                     null,
-                    selection ,
+                    selection,
                     selectionArgs,
                     null,
                     null,
                     null);
 
-                if(cursor.moveToFirst()!=false) {
+
+                if (cursor.moveToFirst()) {
                     int dateIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_DATE);
                     int ovIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_OVERTIME);
                     int nsIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_NIGHT_HOUR);
+                        Date date = cells.get(cells.size() - 1);
+//                        Log.d("date", cursor.getString(dateIndex));
+                        Double ov = cursor.getDouble(ovIndex);
+                        Double ns = cursor.getDouble(nsIndex);
+                        shifts.add(new Shift(date, 1, ov, ns));
 
-                    days.add(new Shift(cells.get(cells.size() - 1), 1, cursor.getDouble(ovIndex), cursor.getDouble(nsIndex)));
                 } else {
-                    days.add(new Shift(cells.get(cells.size()-1),0,0,0));
+                    shifts.add(new Shift(cells.get(cells.size()-1),0,0,0));
                 }
+                cursor.close();
 
         }
 
         // set up the RecyclerView
         recyclerView = findViewById(R.id.calendarView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns, GridLayoutManager.VERTICAL, false));
-        adapter = new MyRecyclerViewAdapter(this, days);
+        adapter = new MyRecyclerViewAdapter(this, shifts);
         recyclerView.setAdapter(adapter);
     }
 

@@ -27,12 +27,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
 
     // data is passed into the constructor
-    MyRecyclerViewAdapter(Context context, ArrayList<Shift> days) {
+    MyRecyclerViewAdapter(Context context, ArrayList<Shift> shifts) {
         mInflater = LayoutInflater.from(context);
-        mShifts = days;
+        mShifts = shifts;
     }
 
-    // inflates the cell layout from xml when needed
+    // inflates the scell layout from xml when needed
     @Override
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -59,6 +59,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             holder.sunMoonImageView.setImageResource(R.drawable.sun_calendar);
 
         }
+        if(mShifts.get(position).overtime != 0 && mShifts.get(position).dayNight == 1)
         holder.overtimeTextView.setText(Double.toString(mShifts.get(position).getOvertime()));
 
     }

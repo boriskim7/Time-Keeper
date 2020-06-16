@@ -39,7 +39,13 @@ public class AddShiftActivity extends AppCompatActivity {
         dbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cursor cursor = sqLiteDatabase.query(ShiftDBContract.ShiftRecords.TABLE_NAME, null, null, null, null, null, null);
+                Cursor cursor = sqLiteDatabase.query(ShiftDBContract.ShiftRecords.TABLE_NAME,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
 
                 if (cursor.moveToFirst()) {
                     int dateIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_DATE);
@@ -70,7 +76,8 @@ public class AddShiftActivity extends AppCompatActivity {
             Toast.makeText(AddShiftActivity.this, "Please fill in all fields", Toast.LENGTH_LONG).show();
             return;
         }
-        String pickerDate =  picker.getYear() + "-" + picker.getMonth() + "-" + picker.getDayOfMonth();
+        int monthPick = picker.getMonth() + 1;
+        String pickerDate =  picker.getYear() + "-" + monthPick + "-" + picker.getDayOfMonth();
         Log.d("record", pickerDate);
 
         double overtime = Double.parseDouble(editTextShiftOvertime.getText().toString());
@@ -82,10 +89,9 @@ public class AddShiftActivity extends AppCompatActivity {
         cv.put(ShiftDBContract.ShiftRecords.COLUMN_NIGHT_HOUR, nightHour);
 
         sqLiteDatabase.insert(ShiftDBContract.ShiftRecords.TABLE_NAME, null, cv);
+    }
 
-
-
-
+    private void deleteShift () {
 
     }
 

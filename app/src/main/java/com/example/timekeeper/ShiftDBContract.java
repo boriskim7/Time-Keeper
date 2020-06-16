@@ -13,8 +13,8 @@ public class ShiftDBContract {
         public static final String COLUMN_NIGHT_HOUR = "nighthour";
 
         public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
-                COLUMN_DATE + " TEXT PRIMARY KEY, " +
-                COLUMN_OVERTIME + " REAL, " +
+                COLUMN_DATE + " TEXT PRIMARY KEY," +
+                COLUMN_OVERTIME + " REAL," +
                 COLUMN_NIGHT_HOUR + " REAL" + ")";
 
     }

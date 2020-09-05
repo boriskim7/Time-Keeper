@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -26,6 +27,9 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
     private ImageButton previousMonth;
     private TextView monthName;
+    private TextView totalView;
+    private TextView totalOvertimeView;
+    private TextView totalNightShiftView;
     private String monthNameInHeader;
     private ImageButton nextMonth;
     private Button btnCalc;
@@ -33,16 +37,18 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     private RecyclerView recyclerView;
     private MyRecyclerViewAdapter adapter;
     private SQLiteDatabase sqLiteDatabase;
+    Context c;
+
 
 
     // how many days to show, defaults to six weeks, 42 days
-    // default date format
 
-    // date format
     private String dateFormat;
     private static final int DAYS_COUNT = 42;
-    public Calendar currentDate = Calendar.getInstance();
-
+    public static Calendar currentDate = Calendar.getInstance();
+    private double total;
+    private double totalOvertime;
+    private double totalNightShifts;
 
 
 
@@ -57,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
         btnCalc = (Button) findViewById(R.id.buttonCalc);
         btnAddShift = (Button) findViewById(R.id.buttonAddDay);
+        totalView = (TextView) findViewById(R.id.total_amount);
+        totalOvertimeView = (TextView) findViewById(R.id.total_overtime_amount);
+        totalNightShiftView = (TextView) findViewById(R.id.total_nighthours_amount);
 
         previousMonth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,23 +97,24 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             }
         });
         updateCalendar();
-
-
     }
+
+    @Override
+    protected void onResume() {
+        updateCalendar();
+        super.onResume();
+    }
+
     public void updateCalendar() {
         final ShiftDBSQLiteHelper dbHelper = new ShiftDBSQLiteHelper(this);
         sqLiteDatabase = dbHelper.getWritableDatabase();
-//        Cursor cursor;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
-
-
         monthNameInHeader = currentDate.getDisplayName(Calendar.MONTH,Calendar.LONG, Locale.getDefault());
         monthName.setText(monthNameInHeader);
         int numberOfColumns = 7;
         ArrayList<Date> cells = new ArrayList<>();
         ArrayList<Shift> shifts = new ArrayList<>();
         Calendar calendar = (Calendar)currentDate.clone();
-
 
         // determine the cell for current month's beginning
         calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -125,11 +135,6 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
             String selection = ShiftDBContract.ShiftRecords.COLUMN_DATE + " =?";
             String [] selectionArgs = {sdf.format(cells.get(cells.size()-1))};
-//            String [] selectionArgs = {"2020-05-05"};
-//            String select = "SELECT * FROM " + ShiftDBContract.ShiftRecords.TABLE_NAME + " WHERE " + ShiftDBContract.ShiftRecords.COLUMN_DATE + " = ?";
-
-            //cursor = sqLiteDatabase.rawQuery(select, selectionArgs);
-
             Cursor cursor = sqLiteDatabase.query(
                     ShiftDBContract.ShiftRecords.TABLE_NAME,
                     null,
@@ -139,13 +144,11 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                     null,
                     null);
 
-
                 if (cursor.moveToFirst()) {
                     int dateIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_DATE);
                     int ovIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_OVERTIME);
                     int nsIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_NIGHT_HOUR);
                         Date date = cells.get(cells.size() - 1);
-//                        Log.d("date", cursor.getString(dateIndex));
                         Double ov = cursor.getDouble(ovIndex);
                         Double ns = cursor.getDouble(nsIndex);
                         shifts.add(new Shift(date, 1, ov, ns));
@@ -156,13 +159,31 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                 cursor.close();
 
         }
+            total = 0;
+            totalOvertime = 0;
+            totalNightShifts = 0;
+
+        for(Shift shift:shifts) {
+            if(shift.dayNight == 1) total = total + 8;
+            if(shift.overtime != 0 ) totalOvertime = totalOvertime + shift.getOvertime();
+            if(shift.nightHours != 0) totalNightShifts = totalNightShifts + shift.getNightHours();
+
+        }
+
+        totalView.setText(String.valueOf(total));
+        totalOvertimeView.setText(String.valueOf(totalOvertime));
+        totalNightShiftView.setText(String.valueOf(totalNightShifts));
+
+
 
         // set up the RecyclerView
         recyclerView = findViewById(R.id.calendarView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns, GridLayoutManager.VERTICAL, false));
         adapter = new MyRecyclerViewAdapter(this, shifts);
         recyclerView.setAdapter(adapter);
+
     }
+
 
     public void openCalc() {
         Intent intent = new Intent(this, calcActivity.class);
@@ -176,6 +197,9 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
     @Override
     public void onItemClick(View view, int position) {
-        Log.i("TAG", "You clicked " + adapter.getItem(position) + ", which is at cell position " + position);
+
+        Toast.makeText(c, "Clicked", Toast.LENGTH_LONG).show();
     }
+
+
 }

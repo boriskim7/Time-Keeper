@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Time Keeper</string>
     <string name="calc_button">Calculator</string>
-    <string name="add_day_button">Add day</string>
+    <string name="add_delete_shift_button">Add/delete shift</string>
     <string name="text_view_header">Working \n Time</string>
 
     <string name="hour_stake_editView">Hour rate</string>

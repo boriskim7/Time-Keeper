@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class AddShiftActivity extends AppCompatActivity {
 
     private Button addButton;
-    private Button dbButton;
+    private Button deleteButton;
     private DatePicker picker;
     private EditText editTextShiftOvertime, editTextShiftNightHour;
     private SQLiteDatabase sqLiteDatabase;
@@ -35,30 +35,11 @@ public class AddShiftActivity extends AppCompatActivity {
         final ShiftDBSQLiteHelper dbHelper = new ShiftDBSQLiteHelper(this);
         sqLiteDatabase = dbHelper.getWritableDatabase();
 
-        dbButton = (Button) findViewById(R.id.buttonDB);
-        dbButton.setOnClickListener(new View.OnClickListener() {
+        deleteButton = (Button) findViewById(R.id.buttonDB);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cursor cursor = sqLiteDatabase.query(ShiftDBContract.ShiftRecords.TABLE_NAME,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
-
-                if (cursor.moveToFirst()) {
-                    int dateIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_DATE);
-                    int ovIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_OVERTIME);
-                    int nsIndex = cursor.getColumnIndex(ShiftDBContract.ShiftRecords.COLUMN_NIGHT_HOUR);
-                    do {
-                        Log.d("mLog","DATE = " + cursor.getString(dateIndex) +
-                                ", overtime = " + cursor.getDouble(ovIndex) +
-                                ", nightshift = " + cursor.getDouble(nsIndex));
-                    } while (cursor.moveToNext());
-                } else
-                    Log.d("mLog", "0 rows");
-                    cursor.close();
+               deleteShift();
             }
         });
 
@@ -92,6 +73,12 @@ public class AddShiftActivity extends AppCompatActivity {
     }
 
     private void deleteShift () {
+
+        int monthPick = picker.getMonth() + 1;
+        String pickerDate =  picker.getYear() + "-" + monthPick + "-" + picker.getDayOfMonth();
+        String [] dateClause = {pickerDate};
+
+        sqLiteDatabase.delete(ShiftDBContract.ShiftRecords.TABLE_NAME, ShiftDBContract.ShiftRecords.COLUMN_DATE + "=?", dateClause);
 
     }
 

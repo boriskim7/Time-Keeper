@@ -136,10 +136,11 @@
         android:id="@+id/buttonCalc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10sp"
         android:background="@drawable/calc_button"
         android:padding="20sp"
-        android:layout_margin="10sp"
         android:text="@string/calc_button"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@id/calendar_header"
         app:layout_constraintTop_toBottomOf="@id/calendarView" />
 
@@ -150,39 +151,85 @@
         android:background="@drawable/calc_button"
         android:padding="20sp"
         android:layout_margin="10sp"
-        android:text="@string/add_day_button"
+        android:text="@string/add_delete_shift_button"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@id/calendar_header"
         app:layout_constraintTop_toBottomOf="@id/buttonCalc" />
-    <TextView
+    <LinearLayout
         android:id="@+id/total"
+        android:orientation="horizontal"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/calendarView"
         app:layout_constraintLeft_toLeftOf="parent"
         android:background="@drawable/calc_button"
-        android:padding="20sp"
+        android:padding="15sp"
         android:layout_margin="10sp"
-        android:text="Total"/>
-    <TextView
+        android:textSize="13sp">
+        <TextView
+            android:id="@+id/total_header"
+            android:layout_width="75dp"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            android:text="Total"
+            />
+        <TextView
+            android:id="@+id/total_amount"
+            android:layout_width="75dp"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            />
+        </LinearLayout>
+    <LinearLayout
         android:id="@+id/total_overtime"
+        android:orientation="horizontal"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/total"
         app:layout_constraintLeft_toLeftOf="parent"
         android:background="@drawable/calc_button"
-        android:padding="20sp"
+        android:padding="15sp"
         android:layout_margin="10sp"
-        android:text="Total overtime"/>/>
-    <TextView
+        android:textSize="13sp">
+        <TextView
+            android:id="@+id/total_overtime_header"
+            android:layout_width="75dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:text="Total overtime"            />
+        <TextView
+            android:id="@+id/total_overtime_amount"
+            android:layout_width="75dp"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            />
+
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/total_night"
+        android:orientation="horizontal"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/total_overtime"
         app:layout_constraintLeft_toLeftOf="parent"
         android:background="@drawable/calc_button"
-        android:padding="20sp"
+        android:padding="15sp"
         android:layout_margin="10sp"
-        android:text="Total night hours"/>/>
+        >
+        <TextView
+            android:id="@+id/total_nighthours_header"
+            android:layout_width="75dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:text="Total night hours"
+            />
+        <TextView
+            android:id="@+id/total_nighthours_amount"
+            android:layout_width="75dp"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
 
 
 

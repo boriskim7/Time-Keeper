@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Time Keeper</string>
+    <string name="calc_button">Калькулятор</string>
+    <string name="add_delete_shift_button">Сделать/ удалить запись</string>
+    <string name="text_view_header">Рабочее \\n время</string>
+    <string name="hour_stake_editView">Ставка в час</string>
+    <string name="overtime_hours">Часы сверхурочно</string>
+    <string name="weekend_hours">Часы в выходные и праздничные дни</string>
+    <string name="night_shift_hours">Часы в ночные смены</string>
+    <string name="weekend_overtime">Часы сверхурочно в выходные и праздничные дни</string>
+    <string name="month">Месяц</string>
+    <string name="year">Год</string>
+    <string name="calculate_button">Рассчитать</string>
+    <string name="select_date_header">Выберите дату</string>
+    <string name="btn_add_shift">Сделать запись</string>
+    <string name="week_day_mon">ПН</string>
+    <string name="week_day_tue">ВТ</string>
+    <string name="week_day_wen">СР</string>
+    <string name="week_day_thu">ЧТ</string>
+    <string name="week_day_fri">ПТ</string>
+    <string name="week_day_sat">СБ</string>
+    <string name="week_day_sun">ВС</string>
+    <string name="tv_total">Всего</string>
+    <string name="tv_total_overtime">Всего сверхурочно</string>
+    <string name="tv_total_night_hours">Всего часы в ночные смены</string>
+    <string name="hint_overtime">Сверхурочно (Чаноп)</string>
+    <string name="hint_night_hour">Часы в ночную смену (Яган)</string>
+    <string name="btn_delete_shift">Удалить запись</string>
+</resources>

@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         android:background="#00FFFFFF"
         android:src="@drawable/ic_left_arrow_orange"
-        android:text="Button"
         android:layout_weight="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -46,9 +45,7 @@
         android:layout_height="wrap_content"
         android:background="#00FFFFFF"
         android:src="@drawable/ic_right_arrow_orange"
-        android:text="Button"
         android:layout_weight="1"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
@@ -68,7 +65,9 @@
         android:layout_weight="1"
         android:gravity="center_horizontal"
         android:textColor="#222222"
-        android:text="MON" />
+        android:text="@string/week_day_mon"
+        android:background="@drawable/calendaritem"
+        />
 
         <TextView
             android:layout_width="0dp"
@@ -76,7 +75,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:textColor="#222222"
-            android:text="TUE"/>
+            android:background="@drawable/calendaritem"
+            android:text="@string/week_day_tue"/>
 
         <TextView
             android:layout_width="0dp"
@@ -84,7 +84,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:textColor="#222222"
-            android:text="WEN"/>
+            android:background="@drawable/calendaritem"
+            android:text="@string/week_day_wen"/>
 
         <TextView
             android:layout_width="0dp"
@@ -92,7 +93,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:textColor="#222222"
-            android:text="THU"/>
+            android:background="@drawable/calendaritem"
+            android:text="@string/week_day_thu"/>
 
         <TextView
             android:layout_width="0dp"
@@ -100,7 +102,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:textColor="#222222"
-            android:text="FRI"/>
+            android:background="@drawable/calendaritem"
+            android:text="@string/week_day_fri"/>
 
         <TextView
             android:layout_width="0dp"
@@ -108,7 +111,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:textColor="#222222"
-            android:text="SAT"/>
+            android:background="@drawable/calendaritem"
+            android:text="@string/week_day_sat"/>
 
         <TextView
             android:layout_width="0dp"
@@ -116,7 +120,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:textColor="#222222"
-            android:text="SUN" />
+            android:background="@drawable/calendaritem"
+            android:text="@string/week_day_sun" />
 
     </LinearLayout>
 
@@ -153,6 +158,7 @@
         android:layout_margin="10sp"
         android:text="@string/add_delete_shift_button"
         android:textSize="13sp"
+        android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="@id/calendar_header"
         app:layout_constraintTop_toBottomOf="@id/buttonCalc" />
     <LinearLayout
@@ -168,16 +174,17 @@
         android:textSize="13sp">
         <TextView
             android:id="@+id/total_header"
-            android:layout_width="75dp"
+            android:layout_width="80dp"
             android:layout_weight="0.5"
             android:layout_height="match_parent"
-            android:text="Total"
+            android:text="@string/tv_total"
             />
         <TextView
             android:id="@+id/total_amount"
-            android:layout_width="75dp"
+            android:layout_width="70dp"
             android:layout_weight="0.5"
             android:layout_height="match_parent"
+            android:textAlignment="center"
             />
         </LinearLayout>
     <LinearLayout
@@ -193,16 +200,19 @@
         android:textSize="13sp">
         <TextView
             android:id="@+id/total_overtime_header"
-            android:layout_width="75dp"
+            android:layout_width="80dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:text="Total overtime"            />
+            android:breakStrategy="simple"
+            android:text="@string/tv_total_overtime"            />
+
         <TextView
             android:id="@+id/total_overtime_amount"
-            android:layout_width="75dp"
-            android:layout_weight="0.5"
+            android:layout_width="70dp"
             android:layout_height="match_parent"
-            />
+            android:layout_weight="0.5"
+            android:gravity="center_horizontal|center_vertical"
+            android:textAlignment="gravity" />
 
     </LinearLayout>
     <LinearLayout
@@ -218,17 +228,20 @@
         >
         <TextView
             android:id="@+id/total_nighthours_header"
-            android:layout_width="75dp"
+            android:layout_width="80dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:text="Total night hours"
+            android:text="@string/tv_total_night_hours"
+            android:breakStrategy="simple"
             />
+
         <TextView
             android:id="@+id/total_nighthours_amount"
-            android:layout_width="75dp"
-            android:layout_weight="0.5"
+            android:layout_width="70dp"
             android:layout_height="match_parent"
-            />
+            android:layout_weight="0.5"
+            android:gravity="center_horizontal|center_vertical"
+            android:textAlignment="gravity" />
     </LinearLayout>
 
 

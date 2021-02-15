@@ -1,10 +1,12 @@
 package com.example.timekeeper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -40,7 +42,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         mShifts = shifts;
     }
 
-    // inflates the scell layout from xml when needed
     @Override
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -112,17 +113,41 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         @Override
         public void onClick(View v) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+            String sd  = sdf.format(mShifts.get(getAdapterPosition()).getDate());
 
-            Log.d("onClick", "clicked");
-            Toast.makeText(v.getContext(),"clicked " + getAdapterPosition() , Toast.LENGTH_SHORT).show();
-            showPopUpMenu(v);
+
+//            Log.d("onClick", "clicked");
+//
+            Toast.makeText(v.getContext(),"Selected date: " + sd, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(v.getContext(), AddShiftActivity.class);
+            intent.putExtra("date", sd);
+            v.getContext().startActivity(intent);
+
+
+//            showPopUpMenu(v);
         }
 
-        private void showPopUpMenu(View view) {
-            PopupMenu popupMenu =  new PopupMenu(view.getContext(), view);
-            popupMenu.inflate(R.menu.popup_menu);
-            popupMenu.show();
-        }
+//        private void showPopUpMenu(View view) {
+//            PopupMenu popupMenu =  new PopupMenu(view.getContext(), view);
+//            PopupMenu.OnMenuItemClickListener onMenuItemClickListener = new PopupMenu.OnMenuItemClickListener() {
+//                @Override
+//                public boolean onMenuItemClick(MenuItem item) {
+//                    switch (item.getItemId()) {
+//                        // make menu items respond on click with an action for crud to db
+//                        case R.id.action_popup_add:
+//                            Intent intent = new Intent("MainActivity.", AddShiftActivity.class)
+//                        case R.id.action_popup_edit:
+//                        case R.id.action_popup_delete:
+//
+//                    }
+//                    return false;
+//                }
+//            };
+//            popupMenu.setOnMenuItemClickListener(onMenuItemClickListener);
+//            popupMenu.inflate(R.menu.popup_menu);
+//            popupMenu.show();
+//        }
 
         @Override
         public boolean onLongClick(View v) {

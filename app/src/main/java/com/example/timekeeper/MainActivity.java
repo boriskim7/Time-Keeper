@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             }
         });
         updateCalendar();
+
     }
 
     @Override
@@ -164,7 +165,10 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             totalNightShifts = 0;
 
         for(Shift shift:shifts) {
-            if(shift.dayNight == 1) total = total + 8;
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTime(shift.getDate());
+            String currentMonth = calendar1.getDisplayName(Calendar.MONTH,Calendar.LONG, Locale.getDefault());
+            if(shift.dayNight == 1 && monthNameInHeader.equals(currentMonth) ) total = total + 8;
             if(shift.overtime != 0 ) totalOvertime = totalOvertime + shift.getOvertime();
             if(shift.nightHours != 0) totalNightShifts = totalNightShifts + shift.getNightHours();
 
@@ -182,6 +186,9 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         adapter = new MyRecyclerViewAdapter(this, shifts);
         recyclerView.setAdapter(adapter);
 
+
+
+
     }
 
 
@@ -195,11 +202,9 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         startActivity(intent);
     }
 
+
     @Override
     public void onItemClick(View view, int position) {
 
-        Toast.makeText(c, "Clicked", Toast.LENGTH_LONG).show();
     }
-
-
 }

@@ -42,7 +42,7 @@
             android:layout_weight="0.5"
             android:background="@drawable/calc_button"
             android:ems="10"
-            android:hint="Overtime"
+            android:hint="@string/hint_overtime"
             android:textAlignment="center" />
 
         <EditText
@@ -52,7 +52,8 @@
             android:layout_weight="0.5"
             android:background="@drawable/calc_button"
             android:ems="10"
-            android:hint="Night Hour"
+            android:hint="@string/hint_night_hour"
+
             android:textAlignment="center" />
     </LinearLayout>
     <Button
@@ -66,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/calc_button"
-        android:text="Delete shift" />
+        android:text="@string/btn_delete_shift" />
 
 
 </LinearLayout>

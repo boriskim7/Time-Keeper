@@ -3,6 +3,7 @@ package com.example.timekeeper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -30,10 +31,22 @@ public class AddShiftActivity extends AppCompatActivity {
         picker = (DatePicker) findViewById(R.id.datePicker);
         editTextShiftOvertime = (EditText) findViewById(R.id.editTextShiftOvertime);
         editTextShiftNightHour = (EditText)findViewById(R.id.editTextShiftNightHour);
+//        editTextShiftNightHour.setText("0");
         addButton = (Button) findViewById(R.id.buttonAddShift);
 
         final ShiftDBSQLiteHelper dbHelper = new ShiftDBSQLiteHelper(this);
         sqLiteDatabase = dbHelper.getWritableDatabase();
+        Intent intent = getIntent();
+        String rcvdDate = null;
+        rcvdDate = intent.getStringExtra("date");
+//        if(rcvdDate!=null) {
+//            Bundle str = getIntent().getBundleExtra("date");
+//            String stringDate = str.getString("date");
+//            String [] dates = stringDate.split("-");
+//            picker.updateDate(Integer.parseInt(dates[0]), Integer.parseInt(dates[1]), Integer.parseInt(dates[2]));
+//        }
+
+        Log.d("date transfer", rcvdDate);
 
         deleteButton = (Button) findViewById(R.id.buttonDB);
         deleteButton.setOnClickListener(new View.OnClickListener() {

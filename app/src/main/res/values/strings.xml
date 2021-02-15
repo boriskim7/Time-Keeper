@@ -15,6 +15,19 @@
     <string name="calculate_button">Calculate</string>
     <string name="select_date_header">Select date</string>
     <string name="btn_add_shift">Add shift</string>
+    <string name="week_day_mon">MON</string>
+    <string name="week_day_tue">TUE</string>
+    <string name="week_day_wen">WEN</string>
+    <string name="week_day_thu">THU</string>
+    <string name="week_day_fri">FRI</string>
+    <string name="week_day_sat">SAT</string>
+    <string name="week_day_sun">SUN</string>
+    <string name="tv_total">Total</string>
+    <string name="tv_total_overtime">Total overtime</string>
+    <string name="tv_total_night_hours">Total night hours</string>
+    <string name="hint_overtime">Overtime</string>
+    <string name="hint_night_hour">Night Hour</string>
+    <string name="btn_delete_shift">Delete shift</string>
 
 
 </resources>

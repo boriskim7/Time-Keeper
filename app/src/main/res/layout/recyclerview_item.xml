@@ -29,6 +29,7 @@
         android:layout_height="20dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:autoSizeTextType="uniform"
         android:textAlignment="center"/>
 
 </RelativeLayout>
